@@ -1,9 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -22,12 +18,12 @@ namespace BerrasBiograf
                 try
                 {
                     var context = services.GetRequiredService<CinemaContext>();
-                    DbInitializer.Initialize(context);
+                    DbInitializer.Initialize(context, 5);
                 }
                 catch (Exception ex)
                 {
                     var logger = services.GetRequiredService<ILogger<Program>>();
-                    logger.LogError(ex, "Error occured while seeding database.");
+                    logger.LogError(ex.Message, "Error occured while seeding database.");
                 }
             }
 
