@@ -15,7 +15,7 @@ namespace BerrasBiograf
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
 
-        public CinemaContext(DbContextOptions options) : base(options)
+        public CinemaContext(DbContextOptions<CinemaContext> options) : base(options)
         {
         }
     }
