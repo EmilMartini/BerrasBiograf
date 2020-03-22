@@ -9,9 +9,9 @@ namespace BerrasBiograf
     public class Movie
     {
         [Key]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Title { get; set; }
-        public float Length { get; set; }
+        public double Length { get; set; }
         public Genre Genre { get; set; }
     }
 }

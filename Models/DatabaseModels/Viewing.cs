@@ -9,9 +9,9 @@ namespace BerrasBiograf
     public class Viewing
     {
         [Key]
-        public Guid Id { get; set; }
-        public Movie MovieToShow { get; set; }
-        public Locale LocaleToShow { get; set; }
+        public int Id { get; set; }
+        public int MovieToShowId { get; set; }
+        public int LocaleToShowId { get; set; }
         public int AvailableSeats { get; set; }
         public DateTime TimeOfScreening { get; set; }
     }

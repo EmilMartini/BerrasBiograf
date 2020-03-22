@@ -1,16 +1,16 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BerrasBiograf
 {
     public class Booking
     {
         [Key]
-        public Guid Id { get; set; }
-        public User User { get; set; }
-        public Viewing BookedViewing { get; set; }
-        public byte NumberOfBookedSeats { get; set; }
+        public int Id { get; set; }
+        public virtual int UserId { get; set; }
+        public virtual int BookedViewingId { get; set; }
+        public int NumberOfBookedSeats { get; set; }
         public DateTime TimeOfBooking { get; set; }
-        public bool Confirmed { get; set; }
     }
 }
