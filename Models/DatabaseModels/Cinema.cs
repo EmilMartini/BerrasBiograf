@@ -9,6 +9,7 @@ namespace BerrasBiograf
     public class Cinema
     {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
+        public virtual List<Locale> Locales { get; set; }
     }
 }

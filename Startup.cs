@@ -24,7 +24,9 @@ namespace BerrasBiograf
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<CinemaContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<CinemaContext>(options => options.UseCosmos("https://localhost:8081",
+                "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==",
+                "CinemaDb"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

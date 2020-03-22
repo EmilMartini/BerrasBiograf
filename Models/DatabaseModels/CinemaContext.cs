@@ -13,9 +13,6 @@ namespace BerrasBiograf
         public DbSet<Locale> Locales { get; set; }
         public DbSet<Viewing> Viewings { get; set; }
         public DbSet<Movie> Movies { get; set; }
-        public DbSet<CinemaLocales> CinemaLocales {get; set;}
-        public DbSet<CinemaMovies> CinemaMovies { get; set; }
-        public DbSet<LocaleViewings> LocaleViewings { get;  set; }
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<User> Users { get; set; }
 

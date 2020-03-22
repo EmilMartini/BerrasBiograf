@@ -18,7 +18,8 @@ namespace BerrasBiograf
                 try
                 {
                     var context = services.GetRequiredService<CinemaContext>();
-                    DbInitializer.Initialize(context, 1);
+                    context.Database.EnsureCreated();
+                    DbInitializer.Initialize(context, true);
                 }
                 catch (Exception ex)
                 {
