@@ -1,0 +1,33 @@
+﻿@model Viewing
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4></h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MovieToShow.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MovieToShow.Title)
+        </dd>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MovieToShow.Genre)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MovieToShow.Length)
+        </dt>
+        <dd class="col-sm-10">
+            Time of Screening
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.MovieToShow.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
