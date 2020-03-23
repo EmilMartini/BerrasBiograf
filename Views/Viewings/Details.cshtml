@@ -4,30 +4,44 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>@Html.DisplayFor(model => model.MovieToShow.Title)</h1>
 
-<div>
-    <h4></h4>
-    <hr />
+<div class="container">
+    <hr >
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.MovieToShow.Title)
+            Title
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.MovieToShow.Title)
         </dd>
+        <dt class="col-sm-2">
+            Genre
+        </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.MovieToShow.Genre)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.MovieToShow.Length)
+            Time of Screening
         </dt>
         <dd class="col-sm-10">
-            Time of Screening
+            @Html.DisplayFor(model => model.TimeOfScreening)
+        </dd>
+        <dt class="col-sm-2">
+            Locale
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LocaleToShow.LocaleName)
+        </dd>
+        <dt class="col-sm-2">
+            Available Seats
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AvailableSeats)
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.MovieToShow.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="container">
+    <a asp-action="BookViewing" asp-route-id="@Model.Id" class="btn btn-dark w-25 m-1">Book Viewing</a> <br />
+    <a asp-action="Index" class="btn btn-dark w-25 m-1">Back to List</a>
 </div>
