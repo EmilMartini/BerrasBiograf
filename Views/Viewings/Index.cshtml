@@ -8,21 +8,20 @@
     @foreach (var item in Model)
     {
     <div class="container mt-2 mb-2">
-        <h1>@Html.DisplayFor(model => item.MovieToShow.Title)</h1>
-
         <hr>
+        <h1>@Html.DisplayFor(model => item.MovieToShow.Title)</h1>
         <dl class="row">
-            <dt class="col-sm-2">
-                Title
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => item.MovieToShow.Title)
-            </dd>
             <dt class="col-sm-2">
                 Genre
             </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => item.MovieToShow.Genre)
+            </dd>
+            <dt class="col-sm-2">
+                Age Restriction
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => item.MovieToShow.AgeRestriction)
             </dd>
             <dt class="col-sm-2">
                 Time of Screening
