@@ -1,10 +1,12 @@
-﻿@model Viewing
+﻿@model IEnumerable<Viewing>
 
 @{
     ViewData["Title"] = "Details";
 }
+@foreach (var item in Model)
+{
 
-<h1>@Html.DisplayFor(model => model.MovieToShow.Title)</h1>
+<h1>@Html.DisplayFor(model => item.MovieToShow.Title)</h1>
 
 <div class="container">
     <hr >
@@ -13,35 +15,36 @@
             Title
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MovieToShow.Title)
+            @Html.DisplayFor(model => item.MovieToShow.Title)
         </dd>
         <dt class="col-sm-2">
             Genre
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MovieToShow.Genre)
+            @Html.DisplayFor(model => item.MovieToShow.Genre)
         </dd>
         <dt class="col-sm-2">
             Time of Screening
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.TimeOfScreening)
+            @Html.DisplayFor(model => item.TimeOfScreening)
         </dd>
         <dt class="col-sm-2">
             Locale
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.LocaleToShow.LocaleName)
+            @Html.DisplayFor(model => item.LocaleToShow.LocaleName)
         </dd>
         <dt class="col-sm-2">
             Available Seats
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.AvailableSeats)
+            @Html.DisplayFor(model => item.AvailableSeats)
         </dd>
     </dl>
 </div>
 <div class="container">
-    <a asp-action="BookViewing" asp-route-id="@Model.Id" class="btn btn-dark w-25 m-1">Book Viewing</a> <br />
+    <a asp-action="BookViewing" asp-route-id="@item.Id" class="btn btn-dark w-25 m-1">Book Viewing</a> <br />
     <a asp-action="Index" class="btn btn-dark w-25 m-1">Back to List</a>
 </div>
+}
