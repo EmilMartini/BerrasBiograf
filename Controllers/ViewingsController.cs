@@ -47,6 +47,12 @@ namespace BerrasBiograf.Controllers
             return View(viewing);
         }
 
+        public IActionResult Seed()
+        {
+            DbInitializer.Initialize(_context);
+            return RedirectToAction("Index");
+        }
+
         //BOKA BIO VY-CALL
         //public async Task<IActionResult> BookViewing(Guid? id)
         //{
