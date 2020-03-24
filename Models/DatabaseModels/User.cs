@@ -9,6 +9,7 @@ namespace BerrasBiograf
         [Key]
         public Guid Id { get; set; }
         public string Name { get; set; }
+        public string Password { get; set; }
         public virtual List<Booking> Bookings { get; set; }
     }
 }

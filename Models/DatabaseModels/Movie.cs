@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BerrasBiograf
 {
@@ -13,5 +10,7 @@ namespace BerrasBiograf
         public string Title { get; set; }
         public double Length { get; set; }
         public Genre Genre { get; set; }
+        public int AgeRestriction { get; set; }
+        public string ImageLink { get; set; }
     }
 }
