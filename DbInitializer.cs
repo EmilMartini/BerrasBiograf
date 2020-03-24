@@ -34,7 +34,7 @@ namespace BerrasBiograf
                 Length = 3,
                 Title = "Lord of the rings - Return of the king",
                 AgeRestriction = 15,
-                ImageLink = "./images/lotrReturnOfTheKing"
+                ImageLink = "/images/lotrReturnOfTheKing.jpg"
             });
             context.Movies.Add(new Movie
             {
@@ -43,7 +43,7 @@ namespace BerrasBiograf
                 Length = 2,
                 Title = "Jackass 3",
                 AgeRestriction = 18,
-                ImageLink = "./images/jackass3"
+                ImageLink = "/images/jackass3.jpg"
             });
             context.Movies.Add(new Movie
             {
@@ -52,7 +52,7 @@ namespace BerrasBiograf
                 Length = 3.5,
                 Title = "The Irishmen",
                 AgeRestriction = 15,
-                ImageLink = "./images/irishmen"
+                ImageLink = "/images/irishmen.jpg"
             });
             context.SaveChanges();
 
