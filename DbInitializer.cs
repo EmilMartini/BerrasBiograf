@@ -6,7 +6,6 @@ namespace BerrasBiograf
 {
     public static class DbInitializer
     {
-        
         public static void Initialize(CinemaContext context)
         {
             context.Cinemas.Add(new Cinema 
