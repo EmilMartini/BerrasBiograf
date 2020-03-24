@@ -44,7 +44,12 @@
     </dl>
 </div>
 <div class="container">
-    <a asp-action="BookViewing" asp-route-id="@item.Id" class="btn btn-dark w-25 m-1">Book Viewing</a> <br />
-    <a asp-action="Index" class="btn btn-dark w-25 m-1">Back to List</a>
+    @if (item.AvailableSeats > 0)
+    {
+        <a asp-action="BookViewing" asp-route-id="@item.Id" class="btn btn-dark w-25 m-1">Book Viewing</a> <br />
+    }
+    <p>
+        Movie is full
+    </p>
 </div>
 }
