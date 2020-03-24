@@ -27,26 +27,32 @@ namespace BerrasBiograf
                         }
                     }
                 });
-            context.Movies.Add(new Movie 
+            context.Movies.Add(new Movie
             {
                 Id = new Guid(),
                 Genre = Genre.Action,
                 Length = 3,
-                Title = "Lord of the rings - Return of the king"
+                Title = "Lord of the rings - Return of the king",
+                AgeRestriction = 15,
+                ImageLink = "./images/lotrReturnOfTheKing"
             });
             context.Movies.Add(new Movie
             {
                 Id = new Guid(),
                 Genre = Genre.Comedy,
                 Length = 2,
-                Title = "Jackass 3"
+                Title = "Jackass 3",
+                AgeRestriction = 18,
+                ImageLink = "./images/jackass3"
             });
             context.Movies.Add(new Movie
             {
                 Id = new Guid(),
                 Genre = Genre.Thriller,
                 Length = 3.5,
-                Title = "The Irishmen"
+                Title = "The Irishmen",
+                AgeRestriction = 15,
+                ImageLink = "./images/irishmen"
             });
             context.SaveChanges();
 
