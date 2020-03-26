@@ -5,6 +5,7 @@ namespace BerrasBiograf
 {
     public class CinemaContext : IdentityDbContext<User>
     {
+
         public DbSet<Cinema> Cinemas { get; set; }
         public DbSet<Locale> Locales { get; set; }
         public DbSet<Viewing> Viewings { get; set; }

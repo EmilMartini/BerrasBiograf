@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +18,7 @@ namespace BerrasBiograf
         }
 
         // GET: Viewings
+
         public async Task<IActionResult> Index()
         {
             var viewings = from viewing in await _context.Viewings.ToListAsync()
