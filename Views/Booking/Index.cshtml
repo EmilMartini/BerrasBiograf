@@ -1,5 +1,12 @@
-﻿
+﻿@model IEnumerable<BerrasBiograf.Booking>
 @{
     ViewData["Title"] = "Index";
+}
+
+<h2>Booking Index</h2>
+@foreach (var item in Model)
+{
+    <h2>@Html.DisplayFor(model => item.User.FirstName)</h2>
+    <h3>@Html.DisplayFor(model => item.Viewing.MovieToShow.Title)</h3>
 }
 

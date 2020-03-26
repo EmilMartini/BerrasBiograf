@@ -1,4 +1,8 @@
-﻿@model IEnumerable<Viewing>
+﻿@using  Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@model IEnumerable<Viewing>
 
 @{
     ViewData["Title"] = "Details";
@@ -7,59 +11,65 @@
 {
     @foreach (var item in Model)
     {
-    <div class="container mx-auto">
-        <div class="w-50 mt-4">
-            <img src=@item.MovieToShow.ImageLink class="img-thumbnail">
+        <div class="container mx-auto">
+            <div class="w-50 mt-4">
+                <img src=@item.MovieToShow.ImageLink class="img-thumbnail">
+            </div>
+            <div class="mt-2 w-100 mb-2 mx-auto">
+                <h2 class="">@Html.DisplayFor(model => item.MovieToShow.Title)</h2>
+                <dl class="row">
+                    <dt class="col-sm-2">
+                        Genre
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => item.MovieToShow.Genre)
+                    </dd>
+                    <dt class="col-sm-2">
+                        Age Restriction
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => item.MovieToShow.AgeRestriction)
+                    </dd>
+                    <dt class="col-sm-2">
+                        Time of Screening
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => item.TimeOfScreening)
+                    </dd>
+                    <dt class="col-sm-2">
+                        Locale
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => item.LocaleToShow.LocaleName)
+                    </dd>
+                    <dt class="col-sm-2">
+                        Available Seats
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => item.AvailableSeats)
+                    </dd>
+                </dl>
+                @if (item.AvailableSeats > 0)
+                {
+                    <form method="post">
+                        <button asp-controller="Booking" asp-action="BookViewing" asp-route-id="@item.Id" class="btn btn-dark m-1">Book Viewing</button> <br />
+                    </form>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <form method="post">
+                            <button asp-controller="Booking" asp-action="AddBooking" asp-route-id="@item.Id" class="btn btn-dark m-1">Add Booking To User *DEVELOPMENT*</button> <br />
+                        </form>
+                    }
+                }
+                else
+                {
+                    <p class="col-sm-2">
+                        Movie is full
+                    </p>
+                }
+                <hr />
+            </div>
         </div>
-        <div class="mt-2 w-100 mb-2 mx-auto">
-            <h2 class="">@Html.DisplayFor(model => item.MovieToShow.Title)</h2>
-            <dl class="row">
-                <dt class="col-sm-2">
-                    Genre
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => item.MovieToShow.Genre)
-                </dd>
-                <dt class="col-sm-2">
-                    Age Restriction
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => item.MovieToShow.AgeRestriction)
-                </dd>
-                <dt class="col-sm-2">
-                    Time of Screening
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => item.TimeOfScreening)
-                </dd>
-                <dt class="col-sm-2">
-                    Locale
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => item.LocaleToShow.LocaleName)
-                </dd>
-                <dt class="col-sm-2">
-                    Available Seats
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => item.AvailableSeats)
-                </dd>
-            </dl>
-            @if (item.AvailableSeats > 0)
-            {
-                <form method="post">
-                    <button asp-controller="Booking" asp-action="BookViewing" asp-route-id="@item.Id" class="btn btn-dark m-1">Book Viewing</button> <br />
-                </form>
-            }
-            else
-            {
-                <p class="col-sm-2">
-                    Movie is full
-                </p>
-            }
-            <hr />
-        </div>
-    </div>
     }
 }
 else
