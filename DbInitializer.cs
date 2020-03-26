@@ -54,6 +54,15 @@ namespace BerrasBiograf
                 AgeRestriction = 15,
                 ImageLink = "/images/irishmen.jpg"
             });
+            context.Movies.Add(new Movie
+            {
+                Id = new Guid(),
+                Genre = Genre.Action,
+                Length = 3,
+                AgeRestriction = 15,
+                Title = "Batman - The Dark Knight",
+                ImageLink = "/images/batmanDarkKnight.jpg"
+            });
             context.SaveChanges();
 
             context.Viewings.Add(new Viewing
@@ -79,6 +88,14 @@ namespace BerrasBiograf
                 AvailableSeats = 100,
                 MovieToShow = context.Movies.Where(o => o.Title == "Lord of the rings - Return of the king").FirstOrDefault(),
                 TimeOfScreening = DateTime.Now.AddDays(4)
+            });
+            context.Viewings.Add(new Viewing
+            {
+                Id = new Guid(),
+                LocaleToShow = context.Locales.Where(o => o.TotalSeats == 100).FirstOrDefault(),
+                AvailableSeats = 100,
+                MovieToShow = context.Movies.Where(o => o.Title == "Batman - The Dark Knight").FirstOrDefault(),
+                TimeOfScreening = DateTime.Now.AddDays(2)
             });
             context.SaveChanges(); 
         }
