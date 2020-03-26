@@ -18,10 +18,13 @@ namespace BerrasBiograf
             _userManager = userManager;
 
         }
+
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             return View();
         }
+
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> BookViewing(Guid? id)
@@ -35,7 +38,7 @@ namespace BerrasBiograf
             {
                 return NotFound();
             }
-            viewing.AvailableSeats--;
+
             await _context.SaveChangesAsync();
             return View(viewing);
         }
