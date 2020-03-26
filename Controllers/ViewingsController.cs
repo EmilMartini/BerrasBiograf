@@ -54,23 +54,6 @@ namespace BerrasBiograf
         }
 
         //BOKA BIO VY-CALL
-        public async Task<IActionResult> Edit(Guid? id)
-        {
-            if(id == null)
-            {
-                return NotFound();
-            }
-
-
-            var viewing = await _context.Viewings.FindAsync(id);
-            if (viewing == null)
-            {
-                return NotFound();
-            }
-            viewing.AvailableSeats--;
-            return View(viewing);
-
-        }
 
         // GET: Viewings/Create
 
@@ -110,9 +93,31 @@ namespace BerrasBiograf
         //// POST: Viewings/Edit/5
         //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> BookViewing(Guid? id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+            var viewing = await _context.Viewings.FindAsync(id);
+            if (viewing == null)
+            {
+                return NotFound();
+            }
+            viewing.AvailableSeats--;
+            await _context.SaveChangesAsync();
+            return View(viewing);
+        }
+
+
+
+
+
+        [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> BookViewing(Guid id, [Bind("Id,AvailableSeats")] Viewing viewing)
+        public async Task<IActionResult> BookViewing2(Guid id, [Bind("Id,AvailableSeats")] Viewing viewing)
         {
             if (id != viewing.Id)
             {
@@ -123,7 +128,7 @@ namespace BerrasBiograf
             {
                 try
                 {
-                    _context.Update(viewing.AvailableSeats);
+                    _context.Update(viewing.AvailableSeats--);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)

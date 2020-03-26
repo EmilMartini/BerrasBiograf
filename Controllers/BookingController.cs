@@ -22,5 +22,22 @@ namespace BerrasBiograf
         {
             return View();
         }
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> BookViewing(Guid? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var viewing = await _context.Viewings.FindAsync(id);
+            if (viewing == null)
+            {
+                return NotFound();
+            }
+            viewing.AvailableSeats--;
+            await _context.SaveChangesAsync();
+            return View(viewing);
+        }
     }
 }
