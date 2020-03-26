@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace BerrasBiograf.Controllers
+namespace BerrasBiograf
 {
     public class ViewingsController : Controller
     {
@@ -121,7 +121,7 @@ namespace BerrasBiograf.Controllers
             {
                 try
                 {
-                    _context.Update(viewing.AvailableSeats--);
+                    _context.Update(viewing.AvailableSeats);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)

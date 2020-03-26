@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace BerrasBiograf
 {
-    public class CinemaContext : DbContext
+    public class CinemaContext : IdentityDbContext<User>
     {
         public DbSet<Cinema> Cinemas { get; set; }
         public DbSet<Locale> Locales { get; set; }
@@ -14,6 +15,12 @@ namespace BerrasBiograf
         public CinemaContext(DbContextOptions<CinemaContext> options) : base(options)
         {
             this.Database.EnsureCreated();
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new RoleConfiguration());
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

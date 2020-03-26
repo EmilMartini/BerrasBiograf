@@ -19,12 +19,16 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Viewings" asp-action="Index">All Viewings</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Viewings" asp-action="Index">Movie Schedule</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Index">My Page</a>
-                        </li>
+                        
+                        @*
+                            //BYTA UT TILL BOOKINGCONTROLLER HÄR SEN
+                            <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Users</a>
+                        </li>*@
                     </ul>
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>

@@ -1,15 +1,14 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace BerrasBiograf
 {
-    public class User
+    public class User : IdentityUser
     {
-        [Key]
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public string Password { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public virtual List<Booking> Bookings { get; set; }
     }
 }
