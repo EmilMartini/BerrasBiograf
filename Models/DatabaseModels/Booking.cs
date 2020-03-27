@@ -7,8 +7,9 @@ namespace BerrasBiograf
     public class Booking
     {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public virtual User User { get; set; }
+        public virtual Viewing Viewing {get;set;}
         public int NumberOfBookedSeats { get; set; }
         public DateTime TimeOfBooking { get; set; }
     }
