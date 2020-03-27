@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,10 +12,12 @@ namespace BerrasBiograf
     public class ViewingsController : Controller
     {
         private readonly CinemaContext _context;
+        private readonly UserManager<User> _userManager;
 
-        public ViewingsController(CinemaContext context)
+        public ViewingsController(CinemaContext context, UserManager<User> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Viewings
@@ -43,8 +46,13 @@ namespace BerrasBiograf
             {
                 return NotFound();
             }
+            var bookingModel = new AddBookingModel
+            {
+                User = await _userManager.GetUserAsync(User),
+                Viewing = viewing
+            };
 
-            return View(viewing);
+            return View(bookingModel);
         }
 
         public IActionResult Seed()

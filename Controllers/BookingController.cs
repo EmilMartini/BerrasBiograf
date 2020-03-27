@@ -63,18 +63,17 @@ namespace BerrasBiograf
                 return NotFound();
             }
 
-            var viewing = await _context.Viewings.FindAsync(id);
-            var user = await _userManager.GetUserAsync(User);
-
-            var booking = new Booking
-            {
-                Id = new Guid(),
-                Viewing = viewing,
-                User = user,
-                NumberOfBookedSeats = 10,
-                TimeOfBooking = DateTime.Now
-            };
-            _context.Bookings.Add(booking);
+            //var viewing = await _context.Viewings.FindAsync(id);
+            //var user = await _userManager.GetUserAsync(User);
+            //var booking = new Booking
+            //{
+            //    Id = bookingModel.Id,
+            //    Viewing = bookingModel.Viewing,
+            //    User = bookingModel.User,
+            //    NumberOfBookedSeats = bookingModel.NumberOfBookedSeats,
+            //    TimeOfBooking = bookingModel.TimeOfBooking
+            //};
+            //_context.Bookings.Add(booking);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }

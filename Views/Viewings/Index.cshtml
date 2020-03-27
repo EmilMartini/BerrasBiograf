@@ -52,7 +52,7 @@
                 @if (item.AvailableSeats > 0)
                 {
                     <form method="post">
-                        <button asp-controller="Booking" asp-action="BookViewing" asp-route-id="@item.Id" class="btn btn-dark m-1">Book Viewing</button> <br />
+                        <button asp-action="Details" asp-route-id="@item.Id" class="btn btn-dark m-1">Details</button> <br />
                     </form>
                     @if (User.Identity.IsAuthenticated)
                     {
