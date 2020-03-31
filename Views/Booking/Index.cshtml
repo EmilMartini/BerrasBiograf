@@ -4,9 +4,51 @@
 }
 
 <h2>Booking Index</h2>
-@foreach (var item in Model)
+@foreach (var item in Model.Reverse())
 {
-    <h2>@Html.DisplayFor(model => item.User.FirstName)</h2>
-    <h3>@Html.DisplayFor(model => item.Viewing.MovieToShow.Title)</h3>
+    //<h2>@Html.DisplayFor(model => item.User.FirstName)</h2>
+    //<h3>@Html.DisplayFor(model => item.Viewing.MovieToShow.Title)</h3>
+
+<div class="container mx-auto">
+    <div class="w-50 mt-4">
+        <img src=@item.Viewing.MovieToShow.ImageLink class="img-thumbnail">
+    </div>
+    <div class="mt-2 w-100 mb-2 mx-auto">
+        <h2 class="">@Html.DisplayFor(model => item.Viewing.MovieToShow.Title)</h2>
+        <dl class="row">
+
+
+            <dt class="col-sm-2">
+                Time of Screening
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => item.Viewing.TimeOfScreening)
+            </dd>
+            <dt class="col-sm-2">
+                Locale
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => item.Viewing.LocaleToShow.LocaleName)
+            </dd>
+            <dt class="col-sm-2">
+                Time of booking
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => item.TimeOfBooking)
+            </dd>
+            <dt class="col-sm-2">
+                Booked seats
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => item.NumberOfBookedSeats)
+            </dd>
+        </dl>
+       
+        <hr />
+    </div>
+</div>
 }
+
+
+
 
