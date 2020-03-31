@@ -55,7 +55,9 @@ namespace BerrasBiograf
             return View(viewing);
         }
 
+        
 
+        
         public async Task<IActionResult> AddBooking(Guid? id, AddBookingModel bookingModel)
         {
             if(id == null)
@@ -63,17 +65,20 @@ namespace BerrasBiograf
                 return NotFound();
             }
 
-            //var viewing = await _context.Viewings.FindAsync(id);
-            //var user = await _userManager.GetUserAsync(User);
-            //var booking = new Booking
-            //{
-            //    Id = bookingModel.Id,
-            //    Viewing = bookingModel.Viewing,
-            //    User = bookingModel.User,
-            //    NumberOfBookedSeats = bookingModel.NumberOfBookedSeats,
-            //    TimeOfBooking = bookingModel.TimeOfBooking
-            //};
-            //_context.Bookings.Add(booking);
+            var user = await _userManager.GetUserAsync(User);
+            var viewing = await _context.Viewings.FindAsync(id);
+            var booking = new Booking
+            {
+                Id = new Guid(), // inte säker på detta
+                Viewing = viewing,
+                User = user,
+                NumberOfBookedSeats = bookingModel.NumberOfBookedSeats,
+                TimeOfBooking = DateTime.Now
+            };
+            //_context.Viewings.Update(viewing).Where(o => o.Id == booking.Viewing.Id);
+            viewing.AvailableSeats = viewing.AvailableSeats - booking.NumberOfBookedSeats;
+            _context.Viewings.Update(viewing);
+            _context.Bookings.Add(booking);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
