@@ -7,15 +7,15 @@ namespace BerrasBiograf
 {
     public class AccountController : Controller
     {
-        private readonly IMapper _mapper;
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
+        private readonly IMapper mapper;
+        private readonly UserManager<User> userManager;
+        private readonly SignInManager<User> signInManager;
 
         public AccountController(IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager)
         {
-            _mapper = mapper;
-            _userManager = userManager;
-            _signInManager = signInManager;
+            this.mapper = mapper;
+            this.userManager = userManager;
+            this.signInManager = signInManager;
         }
 
         [HttpGet]
@@ -32,8 +32,8 @@ namespace BerrasBiograf
             {
                 return View(userModel);
             }
-            var user = _mapper.Map<User>(userModel);
-            var result = await _userManager.CreateAsync(user, userModel.Password);
+            var user = mapper.Map<User>(userModel);
+            var result = await userManager.CreateAsync(user, userModel.Password);
             if (!result.Succeeded)
             {
                 foreach (var error in result.Errors)
@@ -42,8 +42,8 @@ namespace BerrasBiograf
                 }
                 return View(userModel);
             }
-            await _userManager.AddToRoleAsync(user, "VISITOR");
-            return RedirectToAction(nameof(ViewingsController.Index), "Viewings");
+            await userManager.AddToRoleAsync(user, "VISITOR");
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
         [HttpGet]
@@ -64,7 +64,7 @@ namespace BerrasBiograf
                 return View(userModel);
             }
 
-            var result = await _signInManager.PasswordSignInAsync(userModel.Email, userModel.Password, userModel.RememberMe, false);
+            var result = await signInManager.PasswordSignInAsync(userModel.Email, userModel.Password, userModel.RememberMe, false);
             if(result.Succeeded)
             {
                 return RedirectToLocal(returnUrl);
@@ -80,19 +80,17 @@ namespace BerrasBiograf
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
-            await _signInManager.SignOutAsync();
+            await signInManager.SignOutAsync();
 
-            return RedirectToAction(nameof(ViewingsController.Index), "Viewings");
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
-        //Redirect till 'homepage' om ingen annan url är specificerad
         private IActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))
                 return Redirect(returnUrl);
             else
-                return RedirectToAction(nameof(ViewingsController.Index), "Viewings");
-
+                return RedirectToAction(nameof(HomeController.Index), "Home");
         }
     }
 }

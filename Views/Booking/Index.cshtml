@@ -2,52 +2,115 @@
 @{
     ViewData["Title"] = "Index";
 }
+<h3 class="col-sm-10">@Model.First().User.FirstName @Model.First().User.LastName</h3>
+<dl>
+    <dt class="col-sm-2">
+        Total booked seats
+    </dt>
+    <dd class="col-sm-8">
+        @Model.Sum(o => o.NumberOfBookedSeats)
+    </dd>
+    <dt class="col-sm-2">
+        Upcoming bookings
+    </dt>
+    <dd class="col-sm-8">
+        @Model.Where(i => (System.DateTime.Now - i.Viewing.TimeOfScreening).Minutes > 0).Count()
+    </dd>
+    <dt class="col-sm-2">
+        Past Bookings
+    </dt>
+    <dd class="col-sm-8">
+        @Model.Where(i => (System.DateTime.Now - i.Viewing.TimeOfScreening).Minutes <= 0).Count()
+    </dd>
+</dl>
 
-<h2>Booking Index</h2>
-@foreach (var item in Model.Reverse())
-{
-    //<h2>@Html.DisplayFor(model => item.User.FirstName)</h2>
-    //<h3>@Html.DisplayFor(model => item.Viewing.MovieToShow.Title)</h3>
-
-<div class="container mx-auto">
-    <div class="w-50 mt-4">
-        <img src=@item.Viewing.MovieToShow.ImageLink class="img-thumbnail">
-    </div>
-    <div class="mt-2 w-100 mb-2 mx-auto">
-        <h2 class="">@Html.DisplayFor(model => item.Viewing.MovieToShow.Title)</h2>
-        <dl class="row">
-
-
-            <dt class="col-sm-2">
-                Time of Screening
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => item.Viewing.TimeOfScreening)
-            </dd>
-            <dt class="col-sm-2">
-                Locale
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => item.Viewing.LocaleToShow.LocaleName)
-            </dd>
-            <dt class="col-sm-2">
-                Time of booking
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => item.TimeOfBooking)
-            </dd>
-            <dt class="col-sm-2">
-                Booked seats
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => item.NumberOfBookedSeats)
-            </dd>
-        </dl>
-       
-        <hr />
-    </div>
+<div class="p-3">
+    <h1>Upcoming Bookings</h1>
+    @foreach (var item in Model.Reverse().Where(t => (System.DateTime.Now - t.Viewing.TimeOfScreening).Minutes < 0))
+    {
+        <div>
+            <div class="mt-2 w-100 mb-2 mx-auto">
+                <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Viewing.Id"><h2>@item.Viewing.MovieToShow.Title</h2></a>
+                <dl class="row">
+                    <dt class="col-sm-2">
+                        Time of Screening
+                    </dt>
+                    <dd class="col-sm-10">
+                        @item.Viewing.TimeOfScreening
+                    </dd>
+                    <dt class="col-sm-2">
+                        Locale
+                    </dt>
+                    <dd class="col-sm-10">
+                        @item.Viewing.LocaleToShow.LocaleName
+                    </dd>
+                    <dt class="col-sm-2">
+                        Time of booking
+                    </dt>
+                    <dd class="col-sm-10">
+                        @item.TimeOfBooking
+                    </dd>
+                    <dt class="col-sm-2">
+                        Booked seats
+                    </dt>
+                    <dd class="col-sm-10">
+                        @item.NumberOfBookedSeats
+                    </dd>
+                </dl>
+                <hr />
+            </div>
+        </div>
+    }
 </div>
+
+@if (Model.Where(t => (System.DateTime.Now - t.Viewing.TimeOfScreening).Minutes >= 0).Count() > 0)
+{
+    <div class="container pl-3 mt-5">
+        <p>
+            <button class="btn btn-success w-50" type="button" data-toggle="collapse" data-target="#collapsePastBookings" aria-expanded="false" aria-controls="collapsePastBookings">
+                Past Bookings
+            </button>
+        </p>
+        <div class="collapse mb-5" id="collapsePastBookings">
+            @foreach (var item in Model.Reverse().Where(t => (System.DateTime.Now - t.Viewing.TimeOfScreening).Minutes >= 0))
+            {
+                <div>
+                    <div class="mt-2 w-100 mb-2 mx-auto">
+                        <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Viewing.Id"><h2>@item.Viewing.MovieToShow.Title</h2></a>
+                        <dl class="row">
+                            <dt class="col-sm-2">
+                                Time of Screening
+                            </dt>
+                            <dd class="col-sm-10">
+                                @item.Viewing.TimeOfScreening
+                            </dd>
+                            <dt class="col-sm-2">
+                                Locale
+                            </dt>
+                            <dd class="col-sm-10">
+                                @item.Viewing.LocaleToShow.LocaleName
+                            </dd>
+                            <dt class="col-sm-2">
+                                Time of booking
+                            </dt>
+                            <dd class="col-sm-10">
+                                @item.TimeOfBooking
+                            </dd>
+                            <dt class="col-sm-2">
+                                Booked seats
+                            </dt>
+                            <dd class="col-sm-10">
+                                @item.NumberOfBookedSeats
+                            </dd>
+                        </dl>
+                        <hr />
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
 }
+
 
 
 

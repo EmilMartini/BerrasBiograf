@@ -64,7 +64,7 @@ namespace BerrasBiograf
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Viewings}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

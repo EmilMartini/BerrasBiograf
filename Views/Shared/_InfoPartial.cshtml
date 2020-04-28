@@ -1,0 +1,41 @@
+﻿@model Viewing
+<div>
+    <div class="mt-4 w-50 mx-auto text-center">
+        <img src=@Model.MovieToShow.ImageLink class="img-thumbnail">
+    </div>
+    <div class="pt-5 w-100 mb-2 mx-auto">
+        <h2 class="">@Html.DisplayFor(model => Model.MovieToShow.Title)</h2>
+        <dl class="row">
+            <dt class="col-sm-2">
+                Genre
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => Model.MovieToShow.Genre)
+            </dd>
+            <dt class="col-sm-2">
+                Age Restriction
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => Model.MovieToShow.AgeRestriction)
+            </dd>
+            <dt class="col-sm-2">
+                Time of Screening
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => Model.TimeOfScreening)
+            </dd>
+            <dt class="col-sm-2">
+                Locale
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => Model.LocaleToShow.LocaleName)
+            </dd>
+            <dt class="col-sm-2">
+                Available Seats
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => Model.AvailableSeats)
+            </dd>
+        </dl>   
+    </div>
+</div>

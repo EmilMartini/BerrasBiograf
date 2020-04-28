@@ -10,27 +10,26 @@ namespace BerrasBiograf
 {
     public class BookingController : Controller
     {
-        private readonly CinemaContext _context;
-        private readonly UserManager<User> _userManager;
+        private readonly CinemaContext context;
+        private readonly UserManager<User> userManager;
 
         public BookingController(CinemaContext context, UserManager<User> userManager)
         {
-            _context = context;
-            _userManager = userManager;
-
+            this.context = context;
+            this.userManager = userManager;
         }
 
         [Authorize]
         public async Task<IActionResult> Index()
         {
-            var currentUser = await _userManager.GetUserAsync(User);
+            var currentUser = await userManager.GetUserAsync(User);
 
-            var bookings = from booking in await _context.Bookings.ToListAsync()
+            var bookings = from booking in await context.Bookings.ToListAsync()
                            where booking.User == currentUser
-                           join viewing in await _context.Viewings.ToListAsync() on booking.Viewing.Id equals viewing.Id
-                           join movie in await _context.Movies.ToListAsync() on viewing.MovieToShow.Id equals movie.Id
-                           join locale in await _context.Locales.ToListAsync() on viewing.LocaleToShow.Id equals locale.Id
-                           join user in await _context.Users.ToListAsync() on booking.User equals user
+                           join viewing in await context.Viewings.ToListAsync() on booking.Viewing.Id equals viewing.Id
+                           join movie in await context.Movies.ToListAsync() on viewing.MovieToShow.Id equals movie.Id
+                           join locale in await context.Locales.ToListAsync() on viewing.LocaleToShow.Id equals locale.Id
+                           join user in await context.Users.ToListAsync() on booking.User equals user
                            orderby booking.TimeOfBooking ascending
                            select booking;
 
@@ -45,42 +44,37 @@ namespace BerrasBiograf
             {
                 return NotFound();
             }
-            var viewing = await _context.Viewings.FindAsync(id);
+            var viewing = await context.Viewings.FindAsync(id);
             if (viewing == null)
             {
                 return NotFound();
             }
-
-            await _context.SaveChangesAsync();
+            await context.SaveChangesAsync();
             return View(viewing);
         }
 
-        
-
-        
-        public async Task<IActionResult> AddBooking(Guid? id, AddBookingModel bookingModel)
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> AddBooking(Guid? id, AddBookingModel model)
         {
-            if(id == null)
-            {
-                return NotFound();
-            }
+            var user = userManager.GetUserAsync(User).Result;
+            var viewing = context.Viewings.Single(o => o.Id == id);
+            viewing.AvailableSeats -= model.NumberOfBookedSeats;
+            context.Viewings.Update(viewing);
+            await context.SaveChangesAsync();
 
-            var user = await _userManager.GetUserAsync(User);
-            var viewing = await _context.Viewings.FindAsync(id);
             var booking = new Booking
             {
-                Id = new Guid(), // inte säker på detta
-                Viewing = viewing,
+                Id = Guid.NewGuid(),
+                NumberOfBookedSeats = model.NumberOfBookedSeats,
+                TimeOfBooking = DateTime.Now,
                 User = user,
-                NumberOfBookedSeats = bookingModel.NumberOfBookedSeats,
-                TimeOfBooking = DateTime.Now
+                Viewing = context.Viewings.Single(o => o.Id == id)
             };
-            //_context.Viewings.Update(viewing).Where(o => o.Id == booking.Viewing.Id);
-            viewing.AvailableSeats = viewing.AvailableSeats - booking.NumberOfBookedSeats;
-            _context.Viewings.Update(viewing);
-            _context.Bookings.Add(booking);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
+            context.Bookings.Add(booking);
+            await context.SaveChangesAsync();
+
+            return View(booking);
         }
     }
 }

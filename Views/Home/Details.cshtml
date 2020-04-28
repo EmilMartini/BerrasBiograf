@@ -1,0 +1,39 @@
+﻿@model AddBookingModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container mx-auto">
+@Html.Partial("~/Views/Shared/_InfoPartial.cshtml", Model.Viewing)
+<form asp-controller="Booking" asp-action="AddBooking" asp-route-id="@Model.Viewing.Id" class="w-50">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="NumberOfBookedSeats" class="control-label">Number of seats to book</label>
+        <div class="w-50">
+            @Html.DropDownListFor(m => m.NumberOfBookedSeats, Enumerable.Range(1, 12).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), new {@class="form-control", @id="seatSelector", @onChange=$"handleChange(this)"})
+        </div>
+        <span asp-validation-for="NumberOfBookedSeats" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Book" class="btn btn-dark w-100" id="bookButton"/>
+    </div>
+    </form>
+</div>
+
+@section scripts
+{
+    <script>
+        let btn = document.getElementById("bookButton");
+        function handleChange(event){
+            if (event.value > @Model.Viewing.AvailableSeats) {
+                btn.disabled = true;
+            } else {
+                btn.disabled = false;
+            }
+        }
+    </script>
+
+}
+
+

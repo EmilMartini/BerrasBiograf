@@ -9,31 +9,28 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BerrasBiograf
 {
-    public class ViewingsController : Controller
+    public class HomeController : Controller
     {
-        private readonly CinemaContext _context;
-        private readonly UserManager<User> _userManager;
+        private readonly CinemaContext context;
+        private readonly UserManager<User> userManager;
 
-        public ViewingsController(CinemaContext context, UserManager<User> userManager)
+        public HomeController(CinemaContext context, UserManager<User> userManager)
         {
-            _context = context;
-            _userManager = userManager;
+            this.context = context;
+            this.userManager = userManager;
         }
-
-        // GET: Viewings
 
         public async Task<IActionResult> Index()
         {
-            var viewings = from viewing in await _context.Viewings.ToListAsync()
-                                 join movie in await _context.Movies.ToListAsync() on viewing.MovieToShow.Id equals movie.Id
-                                 join locale in await _context.Locales.ToListAsync() on viewing.LocaleToShow.Id equals locale.Id
+            var viewings = from viewing in await context.Viewings.ToListAsync()
+                                 join movie in await context.Movies.ToListAsync() on viewing.MovieToShow.Id equals movie.Id
+                                 join locale in await context.Locales.ToListAsync() on viewing.LocaleToShow.Id equals locale.Id
                                  orderby viewing.TimeOfScreening ascending
                                  select viewing;
 
             return View(viewings);
         }
 
-        // GET: Viewings/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -41,14 +38,14 @@ namespace BerrasBiograf
                 return NotFound();
             }
 
-            var viewing = await _context.Viewings.Where(o => o.Id == id).FirstOrDefaultAsync();
+            var viewing = await context.Viewings.SingleAsync(o => o.Id == id);
             if (viewing == null)
             {
                 return NotFound();
             }
             var bookingModel = new AddBookingModel
             {
-                User = await _userManager.GetUserAsync(User),
+                User = await userManager.GetUserAsync(User),
                 Viewing = viewing
             };
 
@@ -57,17 +54,8 @@ namespace BerrasBiograf
 
         public IActionResult Seed()
         {
-            DbInitializer.Initialize(_context);
+            DbInitializer.Initialize(context);
             return RedirectToAction("Index");
-        }
-
-        
-
-        
-
-        private bool ViewingExists(Guid id)
-        {
-            return _context.Viewings.Any(e => e.Id == id);
         }
     }
 }
