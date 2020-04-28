@@ -14,7 +14,7 @@
         Upcoming bookings
     </dt>
     <dd class="col-sm-8">
-        @Model.Where(i => (System.DateTime.Now - i.Viewing.TimeOfScreening).Minutes <= 0).Count()
+        @Model.Where(i => (System.DateTime.Now - i.Viewing.TimeOfScreening).Minutes < 0).Count()
     </dd>
     <dt class="col-sm-2">
         Past Bookings
@@ -27,7 +27,7 @@
 <div class="p-3">
     <h1>Upcoming Bookings</h1>
     <br />
-    @foreach (var item in Model.Reverse().Where(t => (System.DateTime.Now - t.Viewing.TimeOfScreening).Minutes <= 0))
+    @foreach (var item in Model.Reverse().Where(t => (System.DateTime.Now - t.Viewing.TimeOfScreening).Minutes < 0))
     {
         <div>
             <div class="mt-2 w-100 mb-2 mx-auto">
@@ -58,7 +58,7 @@
     }
 </div>
 
-@if (Model.Where(t => (System.DateTime.Now - t.Viewing.TimeOfScreening).Minutes >= 0).Count() > 0)
+@if (Model.Where(t => (System.DateTime.Now - t.Viewing.TimeOfScreening).Minutes <= 0).Count() > 0)
 {
     <div class="container pl-3 mt-5">
         <p>
@@ -67,7 +67,7 @@
             </button>
         </p>
         <div class="collapse mb-5" id="collapsePastBookings">
-            @foreach (var item in Model.Reverse().Where(t => (System.DateTime.Now - t.Viewing.TimeOfScreening).Minutes >= 0))
+            @foreach (var item in Model.Reverse().Where(t => (System.DateTime.Now - t.Viewing.TimeOfScreening).Minutes > 0))
             {
                 <div>
                     <div class="mt-2 w-100 mb-2 mx-auto">
