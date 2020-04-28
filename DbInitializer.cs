@@ -71,7 +71,7 @@ namespace BerrasBiograf
                 LocaleToShow = context.Locales.Where(o => o.TotalSeats == 50).FirstOrDefault(),
                 AvailableSeats = 50,
                 MovieToShow = context.Movies.Where(o => o.Title == "Jackass 3").FirstOrDefault(),
-                TimeOfScreening = DateTime.Now.AddDays(3)
+                TimeOfScreening = DateTime.Now.AddDays(0)
             });
             context.Viewings.Add(new Viewing
             {
@@ -79,7 +79,7 @@ namespace BerrasBiograf
                 LocaleToShow = context.Locales.Where(o => o.TotalSeats == 100).FirstOrDefault(),
                 AvailableSeats = 100,
                 MovieToShow = context.Movies.Where(o => o.Title == "The Irishmen").FirstOrDefault(),
-                TimeOfScreening = DateTime.Now.AddDays(5)
+                TimeOfScreening = DateTime.Now.AddDays(0)
             });
             context.Viewings.Add(new Viewing
             {
@@ -87,7 +87,39 @@ namespace BerrasBiograf
                 LocaleToShow = context.Locales.Where(o => o.TotalSeats == 100).FirstOrDefault(),
                 AvailableSeats = 100,
                 MovieToShow = context.Movies.Where(o => o.Title == "Lord of the rings - Return of the king").FirstOrDefault(),
-                TimeOfScreening = DateTime.Now.AddDays(4)
+                TimeOfScreening = DateTime.Now.AddDays(3)
+            });
+            context.Viewings.Add(new Viewing
+            {
+                Id = new Guid(),
+                LocaleToShow = context.Locales.Where(o => o.TotalSeats == 100).FirstOrDefault(),
+                AvailableSeats = 100,
+                MovieToShow = context.Movies.Where(o => o.Title == "Batman - The Dark Knight").FirstOrDefault(),
+                TimeOfScreening = DateTime.Now.AddDays(1)
+            });
+            context.Viewings.Add(new Viewing
+            {
+                Id = new Guid(),
+                LocaleToShow = context.Locales.Where(o => o.TotalSeats == 50).FirstOrDefault(),
+                AvailableSeats = 50,
+                MovieToShow = context.Movies.Where(o => o.Title == "Jackass 3").FirstOrDefault(),
+                TimeOfScreening = DateTime.Now.AddDays(2)
+            });
+            context.Viewings.Add(new Viewing
+            {
+                Id = new Guid(),
+                LocaleToShow = context.Locales.Where(o => o.TotalSeats == 100).FirstOrDefault(),
+                AvailableSeats = 100,
+                MovieToShow = context.Movies.Where(o => o.Title == "The Irishmen").FirstOrDefault(),
+                TimeOfScreening = DateTime.Now.AddDays(3)
+            });
+            context.Viewings.Add(new Viewing
+            {
+                Id = new Guid(),
+                LocaleToShow = context.Locales.Where(o => o.TotalSeats == 100).FirstOrDefault(),
+                AvailableSeats = 100,
+                MovieToShow = context.Movies.Where(o => o.Title == "Lord of the rings - Return of the king").FirstOrDefault(),
+                TimeOfScreening = DateTime.Now.AddDays(1)
             });
             context.Viewings.Add(new Viewing
             {

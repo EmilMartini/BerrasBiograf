@@ -4,37 +4,37 @@
         <img src=@Model.MovieToShow.ImageLink class="img-thumbnail">
     </div>
     <div class="pt-5 w-100 mb-2 mx-auto">
-        <h2 class="">@Html.DisplayFor(model => Model.MovieToShow.Title)</h2>
+        <h2 class="">@Model.MovieToShow.Title</h2>
         <dl class="row">
             <dt class="col-sm-2">
                 Genre
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => Model.MovieToShow.Genre)
+                @Model.MovieToShow.Genre
             </dd>
             <dt class="col-sm-2">
                 Age Restriction
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => Model.MovieToShow.AgeRestriction)
+                @Model.MovieToShow.AgeRestriction
             </dd>
             <dt class="col-sm-2">
                 Time of Screening
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => Model.TimeOfScreening)
+                @Model.TimeOfScreening.Hour:@Model.TimeOfScreening.Minute @Model.TimeOfScreening.DayOfWeek (@Model.TimeOfScreening.Day / @Model.TimeOfScreening.Month)
             </dd>
             <dt class="col-sm-2">
                 Locale
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => Model.LocaleToShow.LocaleName)
+                @Model.LocaleToShow.LocaleName
             </dd>
             <dt class="col-sm-2">
                 Available Seats
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => Model.AvailableSeats)
+                @Model.AvailableSeats
             </dd>
         </dl>   
     </div>

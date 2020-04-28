@@ -20,7 +20,7 @@ namespace BerrasBiograf
             this.userManager = userManager;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(HomepageModel filter)
         {
             var viewings = from viewing in await context.Viewings.ToListAsync()
                                  join movie in await context.Movies.ToListAsync() on viewing.MovieToShow.Id equals movie.Id
@@ -28,7 +28,12 @@ namespace BerrasBiograf
                                  orderby viewing.TimeOfScreening ascending
                                  select viewing;
 
-            return View(viewings);
+            if(filter.DayInWeek != null)
+            {
+                viewings = viewings.Where(viewing => viewing.TimeOfScreening.DayOfWeek.ToString() == filter.DayInWeek).ToList();
+            }
+
+             return View(new HomepageModel { Viewings = viewings, DayInWeek = filter.DayInWeek});
         }
 
         public async Task<IActionResult> Details(Guid? id)

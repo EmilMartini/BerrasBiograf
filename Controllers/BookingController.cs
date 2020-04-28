@@ -33,6 +33,10 @@ namespace BerrasBiograf
                            orderby booking.TimeOfBooking ascending
                            select booking;
 
+            if(bookings.Count() < 1)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View(bookings);
         }
 
