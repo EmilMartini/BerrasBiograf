@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -30,7 +29,7 @@ namespace BerrasBiograf
 
             if(filter.DayInWeek != null)
             {
-                viewings = viewings.Where(viewing => viewing.TimeOfScreening.DayOfWeek.ToString() == filter.DayInWeek).ToList();
+                viewings = viewings.Where(viewing => viewing.TimeOfScreening.DayOfWeek.ToString().Equals(filter.DayInWeek)).ToList();
             }
 
              return View(new HomepageModel { Viewings = viewings, DayInWeek = filter.DayInWeek});
@@ -39,15 +38,13 @@ namespace BerrasBiograf
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
-            var viewing = await context.Viewings.SingleAsync(o => o.Id == id);
+            var viewing = await context.Viewings.FindAsync(id);
+
             if (viewing == null)
-            {
                 return NotFound();
-            }
+
             var bookingModel = new AddBookingModel
             {
                 User = await userManager.GetUserAsync(User),
@@ -59,7 +56,7 @@ namespace BerrasBiograf
 
         public IActionResult Seed()
         {
-            DbInitializer.Initialize(context);
+            DbInitializer.Seed(context);
             return RedirectToAction("Index");
         }
     }

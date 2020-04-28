@@ -7,15 +7,13 @@ namespace BerrasBiograf
 {
     public class CustomClaimsFactory : UserClaimsPrincipalFactory<User>
     {
-        public CustomClaimsFactory(UserManager<User> userManager, IOptions<IdentityOptions> optionsAccessor): base(userManager, optionsAccessor)
-        {
-        }
+        public CustomClaimsFactory(UserManager<User> userManager, IOptions<IdentityOptions> optionsAccessor): base(userManager, optionsAccessor){}
+
         protected override async Task<ClaimsIdentity> GenerateClaimsAsync(User user)
         {
             var identity = await base.GenerateClaimsAsync(user);
             identity.AddClaim(new Claim("firstname", user.FirstName));
             identity.AddClaim(new Claim("lastname", user.LastName));
-
             return identity;
         }
     }

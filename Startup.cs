@@ -1,13 +1,11 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
 
 namespace BerrasBiograf
 {
@@ -25,19 +23,18 @@ namespace BerrasBiograf
         {
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
-            //Add Database Connection
-            services.AddDbContext<CinemaContext>(options => options.UseCosmos(Configuration.GetConnectionString("Url"),
+            services.AddDbContext<CinemaContext>(options => 
+            options.UseCosmos(
+                Configuration.GetConnectionString("Url"),
                 Configuration.GetConnectionString("Token"),
-                Configuration.GetConnectionString("DbName")).UseLazyLoadingProxies());
+                Configuration.GetConnectionString("DbName")
+                ).UseLazyLoadingProxies());
 
-            //Add identity
             services.AddIdentity<User, IdentityRole>().
                 AddEntityFrameworkStores<CinemaContext>();
 
-            //Add custom claims
             services.AddScoped<IUserClaimsPrincipalFactory<User>, CustomClaimsFactory>();
 
-            //Add Automapper
             services.AddAutoMapper(typeof(Startup));
         }
 

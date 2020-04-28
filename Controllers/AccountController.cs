@@ -73,7 +73,6 @@ namespace BerrasBiograf
                 ModelState.AddModelError("", "Invalid Username or Password");
                 return View();
             }
-
         }
 
         [HttpPost]
@@ -81,7 +80,6 @@ namespace BerrasBiograf
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
-
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 

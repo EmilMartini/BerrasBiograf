@@ -42,27 +42,10 @@ namespace BerrasBiograf
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> BookViewing(Guid? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            var viewing = await context.Viewings.FindAsync(id);
-            if (viewing == null)
-            {
-                return NotFound();
-            }
-            await context.SaveChangesAsync();
-            return View(viewing);
-        }
-
-        [HttpPost]
-        [Authorize]
         public async Task<IActionResult> AddBooking(Guid? id, AddBookingModel model)
         {
             var user = userManager.GetUserAsync(User).Result;
-            var viewing = context.Viewings.Single(o => o.Id == id);
+            var viewing = await context.Viewings.FindAsync(id);
             viewing.AvailableSeats -= model.NumberOfBookedSeats;
             context.Viewings.Update(viewing);
             await context.SaveChangesAsync();
@@ -73,7 +56,7 @@ namespace BerrasBiograf
                 NumberOfBookedSeats = model.NumberOfBookedSeats,
                 TimeOfBooking = DateTime.Now,
                 User = user,
-                Viewing = context.Viewings.Single(o => o.Id == id)
+                Viewing = context.Viewings.Find(id)
             };
             context.Bookings.Add(booking);
             await context.SaveChangesAsync();

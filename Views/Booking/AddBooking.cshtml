@@ -27,7 +27,7 @@
                 Time of Screening
             </dt>
             <dd class="col-sm-10">
-                @Model.Viewing.TimeOfScreening
+                @Model.Viewing.TimeOfScreening.Hour:@Model.Viewing.TimeOfScreening.Minute @Model.Viewing.TimeOfScreening.DayOfWeek (@Model.Viewing.TimeOfScreening.Day / @Model.Viewing.TimeOfScreening.Month)
             </dd>
             <dt class="col-sm-2">
                 Locale
