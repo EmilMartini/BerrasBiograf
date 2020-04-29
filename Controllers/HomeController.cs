@@ -31,7 +31,11 @@ namespace BerrasBiograf
 
             if(filter.DayInWeek != null)
             {
-                viewings = viewings.Where(viewing => viewing.TimeOfScreening.DayOfWeek.ToString().Equals(filter.DayInWeek)).ToList();
+                viewings = viewings.Where(viewing => viewing.TimeOfScreening.DayOfWeek.ToString().Equals(filter.DayInWeek));
+            }
+            if (filter.SortBy == "Seats")
+            {
+                viewings = viewings.OrderBy(o => o.AvailableSeats);
             }
             if (!filter.Ascending)
             {
