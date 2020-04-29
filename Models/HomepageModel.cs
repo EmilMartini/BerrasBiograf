@@ -6,5 +6,6 @@ namespace BerrasBiograf
     {
         public IEnumerable<Viewing> Viewings { get; set; }
         public string DayInWeek { get; set; }
+        public bool Ascending { get; set; } = true;
     }
 }

@@ -8,7 +8,8 @@
     <div class="form-group">
         <h4>Filter Search</h4>
         <select asp-for="@Model.DayInWeek" onchange="this.form.submit()">
-            <option selected="selected" value="" class="form-control">Select a day</option>
+            <option selected="selected" value="" class="form-control">Select day</option>
+            <option value="Any" class="form-control">Any</option>
             <option value="Monday" class="form-control">Monday</option>
             <option value="Tuesday" class="form-control">Tuesday</option>
             <option value="Wednesday" class="form-control">Wednesday</option>
@@ -17,6 +18,12 @@
             <option value="Saturday" class="form-control">Saturday</option>
             <option value="Sunday" class="form-control">Sunday</option>
         </select>
+        <select asp-for="@Model.Ascending" onchange="this.form.submit()">
+            <option value="true" class="form-control">Ascending</option>
+            <option value="false" class="form-control">Decending</option>
+        </select>
+        
+
     </div>
 </form>
 

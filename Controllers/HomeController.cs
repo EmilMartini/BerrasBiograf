@@ -26,13 +26,19 @@ namespace BerrasBiograf
                                  join locale in await context.Locales.ToListAsync() on viewing.LocaleToShow.Id equals locale.Id
                                  orderby viewing.TimeOfScreening ascending
                                  select viewing;
+            
+                
 
             if(filter.DayInWeek != null)
             {
                 viewings = viewings.Where(viewing => viewing.TimeOfScreening.DayOfWeek.ToString().Equals(filter.DayInWeek)).ToList();
             }
+            if (!filter.Ascending)
+            {
+                viewings = viewings.Reverse();
+            }
 
-             return View(new HomepageModel { Viewings = viewings, DayInWeek = filter.DayInWeek});
+            return View(new HomepageModel { Viewings = viewings, DayInWeek = filter.DayInWeek, Ascending = filter.Ascending});
         }
 
         public async Task<IActionResult> Details(Guid? id)
