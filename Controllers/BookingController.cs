@@ -44,6 +44,10 @@ namespace BerrasBiograf
         [Authorize]
         public async Task<IActionResult> AddBooking(Guid? id, AddBookingModel model)
         {
+            if (model.NumberOfBookedSeats > context.Viewings.Single(o => o.Id == id).AvailableSeats)
+            {
+                return RedirectToAction("Details", "Home", id);
+            }
             var user = userManager.GetUserAsync(User).Result;
             var viewing = await context.Viewings.FindAsync(id);
             viewing.AvailableSeats -= model.NumberOfBookedSeats;
